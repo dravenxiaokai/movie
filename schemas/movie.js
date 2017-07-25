@@ -38,3 +38,4 @@ MovieSchema.statics = {
         return this.findOne({_id:id}).exec(cb)
     }
 }
+module.exports = MovieSchema
