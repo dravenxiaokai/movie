@@ -16,7 +16,7 @@ block content
             th.text-center 删除
         tbody
           each item in movies
-            tr(class="item-id-#{item._id}")
+            tr(class="item-id-"+item._id)
               td #{item.title}
               td #{item.doctor}
               td #{item.country}
@@ -25,5 +25,5 @@ block content
               td: a(target="_blank",href="../movie/"+item._id,class="btn btn-success btn-sm") 查看
               td: a(target="_blank",href="../admin/update/"+item._id,class="btn btn-warning btn-sm") 修改
               td
-                button.btn.btn-danger.del(type="button",data-id="#{item._id}") 删除
+                button.btn.btn-danger.del(type="button",data-id=item._id) 删除
   script(src="/js/admin.js")

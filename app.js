@@ -16,7 +16,7 @@ mongoose.connect('mongodb://localhost:27017/movie',{
 app.set('views','./views/pages/')
 app.set('view engine','pug')
 app.use(bodyParser.urlencoded({extended: true}))
-app.use(serveStatic(path.join(__dirname,'bower_components')))
+app.use(serveStatic(path.join(__dirname,'public')))
 app.locals.moment = require('moment')
 app.listen(port)
 mongoose.Promise = global.Promise
