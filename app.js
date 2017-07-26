@@ -4,7 +4,7 @@ var path = require('path')
 var serveStatic = require('serve-static')
 var bodyParser = require('body-parser')
 var mongoose = require('mongoose')
-mongoose.Promise = require('bluebird')
+// mongoose.Promise = require('bluebird')
 var Movie = require('./models/movie')
 var _ = require('underscore')
 var app = express()
@@ -30,7 +30,7 @@ app.get('/',function(req,res){
       console.log(err)
     }
     res.render('index', {
-      title:'movie 首页',
+      title:'movie首页',
       movies:movies
     })
   })
@@ -63,6 +63,7 @@ app.get('/',function(req,res){
     //     }]
     // })
 })
+
 //detail page
 app.get('/movie/:id',function(req,res){
     var id = req.params.id
@@ -91,11 +92,11 @@ app.get('/movie/:id',function(req,res){
 app.post('/admin/movie/new',function(req,res){
   // var id =  mongoose.Types.ObjectId.createFromHexString(req.body.movie._id)
   var id =  req.body.movie._id
-
+  // console.log(id)
   var movieObj = req.body.movie
   var _movie
 
-  if(id !== 'undefined'){
+  if(id !== 'undefined'&&mongoose.Types.ObjectId.isValid(id)){
     Movie.findById(id,function(err,movie){
       if(err){
         console.log(err)
@@ -170,6 +171,20 @@ app.get('/admin/list',function(req,res){
     //     flash:'http://player.youku.com/player.php/sid/XNjA1Njc0NTUy/v.swf'
     //     }]
     // })
+})
+
+//admin update movie
+app.get('/admin/update/:id',function(req,res){
+  var id = req.params.id
+
+  if(id){
+    Movie.findById(id,function(err,movie){
+      res.render('admin',{
+        title:'movie 后台更新页',
+        movie:movie
+      })
+    })
+  }
 })
 
 //list delete movie
